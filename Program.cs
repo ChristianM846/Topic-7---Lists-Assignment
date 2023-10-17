@@ -51,6 +51,7 @@
                     Console.Clear();
                     Console.WriteLine("Here is the sorted list:");
                     Console.WriteLine();
+
                     foreach (int number in numbers)
                     {
                         Console.Write(number + ", ");
@@ -68,16 +69,37 @@
                         numberGen = genrator.Next(10, 21);
                         numbers.Add(numberGen);
                     }
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
                 }
                 else if (choice == "3")
                 {
                     Console.WriteLine("Choose which value you wish to remove from the list");
 
-                    while (Int32.TryParse(Console.ReadLine(), out numberChoice) || numberChoice > 20 || numberChoice < 10)
+                    while (!Int32.TryParse(Console.ReadLine(), out numberChoice) || numberChoice > 20 || numberChoice < 10)
                     {
                         Console.WriteLine("I'm sorry, that's not a valid input. Please input a whole integer value between 10-20:");
                     }
+                    
+                    foreach (int number in numbers) // dis not working right now
+                    {
+                        if (number == numberChoice)
+                        {
+                            numbers.Remove(number);
+                        }
+                    }
 
+                    Console.Clear();
+                    Console.WriteLine($"Here is the new list with all {numberChoice}'s removed:");
+                    Console.WriteLine();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
                 }
                 else if (choice == "4")
                 {
