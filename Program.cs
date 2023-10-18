@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            int numberGen, numberChoice;
+            int numberGen, numberChoice, numberCount, largestNumber, smallestNumber;
             bool done1 = false, done2 = false;
             string choice;
             choice = "";
@@ -28,6 +28,10 @@
 
             while (done1 == false)
             {
+                numberCount = 0;
+                largestNumber = 10;
+                smallestNumber = 20;
+
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine("What operation would you like to perform on the list:");
@@ -83,15 +87,17 @@
                     {
                         Console.WriteLine("I'm sorry, that's not a valid input. Please input a whole integer value between 10-20:");
                     }
-                    
-                    foreach (int number in numbers) // dis not working right now
+
+                    while (numbers.Contains(numberChoice))
                     {
-                        if (number == numberChoice)
+                        for (int i = 0; i < numbers.Count; i++)
                         {
-                            numbers.Remove(number);
+                            if (numbers[i] == numberChoice)
+                            {
+                                numbers.Remove(numbers[i]);
+                            }
                         }
                     }
-
                     Console.Clear();
                     Console.WriteLine($"Here is the new list with all {numberChoice}'s removed:");
                     Console.WriteLine();
@@ -103,27 +109,90 @@
                 }
                 else if (choice == "4")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
+                    Console.WriteLine("Choose a number you'd like to add to the end of the list:");
+                    
+                    while (!Int32.TryParse(Console.ReadLine(), out numberChoice) || numberChoice > 20 || numberChoice < 10)
+                    {
+                        Console.WriteLine("That is not a valid input, please input a whole number between 10-20:");
+                    }
+
+                    numbers.Add (numberChoice);
+                    Console.Clear();
+                    Console.WriteLine("Here is your new list, with the new value;");
+
+                    Console.WriteLine();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
+
                 }
                 else if (choice == "5")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.WriteLine("Choose which value you wish for me to count");
+
+                    while (!Int32.TryParse(Console.ReadLine(), out numberChoice) || numberChoice > 20 || numberChoice < 10)
+                    {
+                        Console.WriteLine("I'm sorry, that's not a valid input. Please input a whole integer value between 10-20:");
+                    }
+
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            if (numbers[i] == numberChoice)
+                            {
+                                numberCount++;
+                            }
+                        }
+
+                    Console.WriteLine($"There are {numberCount} instances of the number {numberChoice} in the list:");
                     Console.ReadLine();
+                    Console.Clear();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
+
                 }
                 else if (choice == "6")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
+                    foreach (int number in numbers)
+                    {
+                        if (number > largestNumber)
+                        {
+                            largestNumber = number;
+                        }
+                    }
+
+                    Console.WriteLine($"The largest number in the list is {largestNumber}");
                     Console.ReadLine();
+                    Console.Clear();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    } 
+
                 }
                 else if (choice == "7")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
+                    foreach (int number in numbers)
+                    {
+                        if (number < smallestNumber)
+                        {
+                            smallestNumber = number;
+                        }
+                    }
+
+                    Console.WriteLine($"The smallest number in the list is {smallestNumber}");
                     Console.ReadLine();
+                    Console.Clear();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
                 }
                 else if (choice == "8")
                 {
