@@ -4,13 +4,15 @@
     {
         static void Main(string[] args)
         {
-            int numberGen, numberChoice, numberCount, largestNumber, smallestNumber;
+            int numberGen, numberChoice, numberCount, largestNumber, smallestNumber, currentCount, largestCount, mostFrequent;
+            double sum;
             bool done1 = false, done2 = false;
             string choice;
             choice = "";
             Random genrator = new Random();
 
             List<int> numbers = new List<int>();
+            List<int> largest = new List<int>();
 
             for (int i = 0; i < 25; i++)
             {
@@ -28,6 +30,9 @@
 
             while (done1 == false)
             {
+                largestCount = 0;
+                mostFrequent = 0;
+                sum = 0;
                 numberCount = 0;
                 largestNumber = 10;
                 smallestNumber = 20;
@@ -196,15 +201,60 @@
                 }
                 else if (choice == "8")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
+                    foreach (int number in numbers)
+                    {
+                        sum += number;
+                    }
+
+                    Convert.ToDouble(sum);
+
+                    Console.WriteLine($"The sum of the numbers in the list is {sum}, and the average is {sum/numbers.Count}");
                     Console.ReadLine();
+                    Console.Clear();
+
+                    foreach (int number in numbers)
+                    {
+                        Console.Write(number + ", ");
+                    }
                 }
                 else if (choice == "9")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
+                    for (int i = 10; i < 21; i++)
+                    {
+                        currentCount = 0;
+
+                        foreach (int number in numbers)
+                        {
+                            if (i == number)
+                            {
+                                currentCount++;
+                            }
+
+                            if (currentCount > largestCount)
+                            {
+                                largestCount = currentCount;
+                                largest.Clear();
+                                largest.Add(i);
+                                Console.WriteLine("Cleared and added"); // testing
+                            }
+                            else if (currentCount == largestCount)
+                            {
+                                largest.Add(i);
+                                Console.WriteLine("Added"); // tesing
+                            }
+                            else
+                            {
+                                Console.WriteLine("nothing"); // thesting
+                            }
+                            
+                        }
+                    }
+
+                    foreach (int amount in largest)
+                    {
+                        Console.Write(amount + ", "); // testing
+                    }
+
                 }
                 else if (choice == "Q")
                 {
