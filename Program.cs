@@ -290,6 +290,7 @@
                 {
                     Console.WriteLine("Okay, goodbye.");
                     Console.WriteLine();
+                    Console.Clear();
                     done = true;
                 }
                 else
@@ -331,30 +332,100 @@
                 Console.WriteLine("6 - Clear the list");
                 Console.WriteLine("Q - Quit");
                 Console.WriteLine();
-                choice = Console.ReadLine().ToLower().Trim();
+                choice = Console.ReadLine().ToUpper().Trim();
                 Console.WriteLine();
 
                 if (choice == "1")
                 {
                     Console.WriteLine("Which index spot would you like me to clear (according to the numbering on screen)");
+
+                    while (!Int32.TryParse(Console.ReadLine(),out chosenIndex))
+                    {
+                        Console.WriteLine("That is not a valid input, please try again.");
+                    }
+
+                    if (chosenIndex > veggies.Count || chosenIndex - 1 < 0)
+                    {
+                        Console.WriteLine("I'm sorry, that index is inavlid or does not exist");
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        veggies.RemoveAt(chosenIndex - 1);
+                        Console.Clear();
+                        Console.WriteLine("Here is the new list:");
+                        Console.WriteLine();
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
+                    }
                 }
                 else if (choice == "2")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
+                    Console.WriteLine("Which veggie would you like me to remove:");
+                    chosenVeggie = Console.ReadLine().ToUpper().Trim();
+
+                    if (veggies.Contains(chosenVeggie))
+                    {
+                        veggies.Remove(chosenVeggie);
+                        Console.Clear();
+                        Console.WriteLine($"Here is the new list with {chosenVeggie} removed:");
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("I'm sorry, that veggie is not on the list");
+                    }
                 }
                 else if (choice == "3")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
+                    Console.WriteLine("What veggie do you want me to search for:");
+                    chosenVeggie = Console.ReadLine().ToUpper().Trim();
+
+                    if (veggies.Contains(chosenVeggie)) 
+                    {
+                        Console.WriteLine($"{chosenVeggie} has been found in the list at index {veggies.IndexOf(chosenVeggie)} ({veggies.IndexOf(chosenVeggie) + 1} on screen)");
+                        Console.ReadLine();
+
+                        Console.Clear();
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{chosenVeggie} was not found in the list.");
+                        Console.ReadLine();
+                        Console.Clear();
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
+                    }
+
                 }
                 else if (choice == "4")
                 {
-                    Console.WriteLine("You chose option 2");
-                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.WriteLine("What is the name of the veggie you would like to add");
+                    chosenVeggie = Console.ReadLine().ToUpper().Trim();
+                    veggies.Add(chosenVeggie);
+                    Console.WriteLine($"{chosenVeggie} has been added to the list");
                     Console.ReadLine();
+                    Console.Clear();
+
+                    for (int i = 0; i < veggies.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}-{veggies[i]}");
+                    }
                 }
                 else if (choice == "5")
                 {
@@ -375,12 +446,18 @@
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
                     Console.Clear();
+
+                    for (int i = 0; i < veggies.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}-{veggies[i]}");
+                    }
                 }
                 else if (choice == "Q")
                 {
                     Console.WriteLine("Okay, goodbye.");
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
+                    Console.Clear();
                     done = true;
                 }
                 else
