@@ -306,6 +306,7 @@
         {
             int chosenIndex;
             bool done = false;
+            bool match = false;
             string choice, chosenVeggie;
 
             List<string> veggies = new List<string>() { "CARROT", "BEET", "CELERY", "RADISH", "CABBAGE" };
@@ -322,6 +323,7 @@
 
             while (!done)
             {
+                match = false;
                 Console.WriteLine("What operation would you like to perform to the list:");
                 Console.WriteLine();
                 Console.WriteLine("1 - Remove a veggie by index");
@@ -417,14 +419,38 @@
                 {
                     Console.WriteLine("What is the name of the veggie you would like to add");
                     chosenVeggie = Console.ReadLine().ToUpper().Trim();
-                    veggies.Add(chosenVeggie);
-                    Console.WriteLine($"{chosenVeggie} has been added to the list");
-                    Console.ReadLine();
-                    Console.Clear();
 
-                    for (int i = 0; i < veggies.Count; i++)
+                    foreach (string veggie in veggies)
                     {
-                        Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        if (chosenVeggie == veggie)
+                        {
+                            match = true;
+                        }
+                    }
+
+                    if (match == true)
+                    {
+                        Console.WriteLine($"I'm sorry, {chosenVeggie} already exists in the list");
+                        Console.ReadLine();
+                        Console.Clear();
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
+
+                    }
+                    else
+                    {
+                        veggies.Add(chosenVeggie);
+                        Console.WriteLine($"{chosenVeggie} has been added to the list");
+                        Console.ReadLine();
+                        Console.Clear();
+
+                        for (int i = 0; i < veggies.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}-{veggies[i]}");
+                        }
                     }
                 }
                 else if (choice == "5")
